@@ -1,0 +1,21 @@
+{
+    "ws_addr": "wss://ws-feed.exchange.coinbase.com",
+    "subscribe_message": {
+        "type": "subscribe",
+        "product_ids": [
+            "ETH-USD",
+            "ETH-EUR"
+        ],
+        "channels": [
+            "level2",
+            "heartbeat",
+            {
+                "name": "ticker",
+                "product_ids": [
+                    "ETH-BTC",
+                    "ETH-USD"
+                ]
+            }
+        ]
+    }
+}

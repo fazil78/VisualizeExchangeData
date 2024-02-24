@@ -1,0 +1,2 @@
+1) Since WS is event driven, you cannot have if connection succeeds, do this, else do this directly. There is a concept of Promise which can be used to call functions based on success or errors.
+
