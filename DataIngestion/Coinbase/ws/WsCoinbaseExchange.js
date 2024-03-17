@@ -26,21 +26,24 @@ function ws_connect() {
         console.log("Connection closed");
         clearInterval(thread_ws_keep_alive);
     }
-    ws.onmessage = function(event) {
-        const jsonData = JSON.parse(event.data);
-        if("type" in jsonData && jsonData["type"] == 'subscriptions')
-        {
-            console.log("Subscription Successful: ", event.data);
-            thread_ws_keep_alive = setInterval(() => ws_keepalive(ws), 30000);
-        }
-        else if("type" in jsonData && jsonData["type"] == 'error')
-        {
-            console.log("Subscription ERROR: ", event.data)
-        }
-        else
-        {
-            dataCallback(event);
-        }
+    ws.onmessage = handleMessage;
+}
+
+function handleMessage(event, ws) {
+    const jsonData = JSON.parse(event.data);
+    if("type" in jsonData && jsonData["type"] == 'subscriptions')
+    {
+        console.log("Subscription Successful: ", event.data);
+        thread_ws_keep_alive = setInterval(() => ws_keepalive(ws), 30000);
+        // ws.onmessage = dataCallback;
+    }
+    else if("type" in jsonData && jsonData["type"] == 'error')
+    {
+        console.log("Subscription ERROR: ", event.data)
+    }
+    else
+    {
+        dataCallback(jsonData);
     }
 }
 
